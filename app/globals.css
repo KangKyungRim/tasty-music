@@ -1,26 +1,47 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Background */
+  --color-black: #000000;
+  --color-gray: #1A1A1A;
+  --color-white: #ffffff;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Text */
+  --color-text-secondary: #858585;
+  --color-text-black: #0D142C;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* 12px */
+  --text-xs: 0.75rem;   
+  /* 14px */
+  --text-sm: 0.875rem; 
+  /* 16px */
+  --text-base: 1rem;    
+  /* 18px */
+  --text-lg: 1.125rem;  
+  /* 20px */
+  --text-xl: 1.25rem;   
+  /* 24px */
+  --text-2xl: 1.5rem;  
+  /* 26px */
+  --text-3xl: 1.6rem;
+
+  /* Brand / Action */
+  --color-primary: #A8A3F7;
+  --color-lemon: #F8FFA1;
+  --color-pink: #F6D5EE;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--color-black);
+  color: var(--color-white);
+  font-family: var(--font-pretendard);
+  line-height: 1.4;
 }
+
+.appContainer {
+  max-width: 30rem;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+

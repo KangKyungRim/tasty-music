@@ -1,0 +1,22 @@
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.8rem;
+  background: linear-gradient(
+    90deg,
+    #515E96 0%,
+    #A8A3F7 50%,
+    #F7D5EE 100%
+  );
+  border-radius: 2rem;
+  cursor: pointer;
+
+  p {
+    color: var(--color-text-black);
+    font-weight: 600;
+    font-size: var(--text-sm);
+  }
+}
