@@ -1,0 +1,21 @@
+.headerBar {
+  display: flex;
+  align-items: center;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  box-sizing: border-box;
+  padding: 1.2rem;
+  position: sticky;
+  left: 0;
+  top: 0;
+  background: var(--color-black);
+
+  .left {
+    display: flex;
+    align-items: center;
+
+    p {
+      margin-left: 0.6rem;
+    }
+  }
+}

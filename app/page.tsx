@@ -1,10 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import styles from './page.module.scss';
 import CTAButton from '@/components/CTAButton/CTAButton';
 
 export default function Home() {
+  const router = useRouter();
+
   return (
     <motion.section
       className={styles.home}
@@ -42,7 +45,10 @@ export default function Home() {
             delay: 0.4, 
           }}
         >
-          <CTAButton text="이 순간에 맞는 음악 받기" />
+          <CTAButton 
+            text="이 순간에 맞는 음악 받기" 
+            onClick={() => router.replace('/survey')}
+          />
         </motion.div>
       </div>
     </motion.section>

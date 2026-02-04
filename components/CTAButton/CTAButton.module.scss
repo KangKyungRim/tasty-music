@@ -13,6 +13,12 @@
   );
   border-radius: 2rem;
   cursor: pointer;
+  opacity: 100%;
+
+  // 비활성화
+  &:disabled {
+    opacity: 50%;
+  }
 
   p {
     color: var(--color-text-black);
