@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import styles from './page.module.scss';
@@ -16,14 +16,26 @@ export default function Survey() {
   const router = useRouter();
   const result = useSurveyStore<SurveyResult>((state) => state.result);
   const toggleOption = useSurveyStore((state) => state.toggleOption);
+  const reset = useSurveyStore((s) => s.reset);
+  const shouldResetOnLeave = useSurveyStore((s) => s.shouldResetOnLeave);
   
-  // 처음으로 or 뒤로 갈 때 선택한 옵션 해제될거라고 알려주기
-  // 옵션을 하나라도 선택해야 확인 버튼 활성화
+  // 처음으로 or 뒤로 갈 때 선택한 옵션 해제
+  useEffect(() => {
+    return () => {
+      if (shouldResetOnLeave) {
+        reset();
+      } 
+    };
+  }, [shouldResetOnLeave, reset]);
 
   // 확인 버튼
   const isValid = result.moods || result.activities || result.styles;
 
+  const disableResetOnce = useSurveyStore((s) => s.disableResetOnce);
+
   const handleNext = () => {
+    // 결과로 넘어갈 땐 초기화 방지
+    disableResetOnce(); 
     router.push("/result");
   };
 
@@ -31,7 +43,11 @@ export default function Survey() {
     <section className={styles.wrap}>
       <HeaderBar>
         <HeaderBar.Left
-          onClick={() => router.replace("/")}
+          onClick={
+            () => {
+              reset();
+              router.replace("/")
+            }}
         >
           <ArrowIcon 
             size={12}
