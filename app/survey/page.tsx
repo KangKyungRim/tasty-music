@@ -9,18 +9,22 @@ import HeaderBar from '@/components/HeaderBar/HeaderBar';
 import ArrowIcon from "@/components/icons/ArrowIcon";
 import PageIntro from "@/components/PageIntro/PageIntro";
 import SurveySection from "./components/SurveySection";
+import { useSurveyStore } from "@/stores/useSurveyStore"; 
+import type { SurveyResult } from "@/stores/useSurveyStore";
 
 export default function Survey() {
   const router = useRouter();
+  const result = useSurveyStore<SurveyResult>((state) => state.result);
+  const toggleOption = useSurveyStore((state) => state.toggleOption);
   
   // 처음으로 or 뒤로 갈 때 선택한 옵션 해제될거라고 알려주기
   // 옵션을 하나라도 선택해야 확인 버튼 활성화
 
   // 확인 버튼
-  // const isValid = ;
+  const isValid = result.moods || result.activities || result.styles;
 
   const handleNext = () => {
-    // router.push("/result");
+    router.push("/result");
   };
 
   return (
@@ -56,6 +60,8 @@ export default function Survey() {
             { value: "romantic", label: "로맨틱한/사랑스러운" },
             { value: "energetic", label: "에너제틱한/힘나는" },
           ]}
+          selected={result.moods}                
+          onSelect={(value) => toggleOption("moods", value)} 
         />
 
         <SurveySection
@@ -67,6 +73,8 @@ export default function Survey() {
             { value: "party", label: "파티 중/놀고 있음" },
             { value: "relax", label: "휴식 중/쉬는 중" },
           ]}
+          selected={result.activities}                
+          onSelect={(value) => toggleOption("activities", value)} 
         />
 
         <SurveySection
@@ -78,11 +86,13 @@ export default function Survey() {
             { value: "latin", label: "라틴" },
             { value: "edm", label: "EDM" },
           ]}
+          selected={result.styles}                
+          onSelect={(value) => toggleOption("styles", value)} 
         />
 
         <div className={styles.buttonWrap}>
           <CTAButton 
-            // disabled={!isValid}
+            disabled={!isValid}
             onClick={handleNext}
             text="확인"
           />
