@@ -1,46 +1,29 @@
-.item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--color-black);
-  color: var(--color-white);
-  box-sizing: border-box;
-  padding: 1.2rem 0.5rem;
-  border-bottom: 1px solid #585858;
+.playerBox {
+  position: fixed;
+  bottom: 0;
+  background: var(--color-gray);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 28rem;
+  transition: 0.3s;
+  z-index: 50;
 }
 
-.item:last-of-type {
-  border-bottom: 0;
-}
+.progress {
+  height: 0.3rem;
+  background: #3e3e3e;
 
-.item:hover {
-
-  .cover {
-    position: relative;
-    transition: all 0.3s;
-
-    &::after {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      content: url("../../public/images/ArrowLayerImg.png");
-      z-index: 2;
-      transition: all 0.3s;
-    }
-
-    &::before {
-      z-index: 1;
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background: #00000050;
-      content: "";
-      transition: all 0.3s;
-    }
+  .bar {
+    height: 100%;
+    background: #989898;
   }
+}
+
+.player {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .left {
@@ -52,12 +35,27 @@
 }
 
 .cover {
-  width: 40px;
-  height: 40px;
-  background: #ccc;
-  border-radius: 12px;
-  overflow: hidden;
-  cursor: pointer;
+  width: 4.4rem;
+  height: 4.4rem;
+  background: #bbb;
+  position: relative;
+  overflow: auto;
+
+  &::after {
+    position: absolute;
+    background: linear-gradient(
+      90deg,
+      #1a1a1a1a 0%,
+      var(--color-gray) 100%
+    );
+
+    width: 101%;
+    height: 100%;
+    content: "";
+    left: 0;
+    top: 0;
+    z-index: 2;
+  }
 }
 
 .cover img {
@@ -69,7 +67,9 @@
 .text {
   display: flex;
   flex-direction: column;
-  width: 78%;
+  width: 76%;
+  box-sizing: border-box;
+  padding: 1.0rem 1.0rem 1.0rem 0;
   overflow: hidden;
 }
 
@@ -115,6 +115,9 @@
   }
 }
 
-.play {
-  cursor: pointer;
+.controls {
+  display: flex;
+  gap: 0.8rem;
+  box-sizing: border-box;
+  padding: 1.0rem;
 }

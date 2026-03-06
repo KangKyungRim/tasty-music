@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export interface SurveyResult {
   moods: string | null;
@@ -17,38 +18,46 @@ interface SurveyState {
   disableResetOnce: () => void;
 }
 
-export const useSurveyStore = create<SurveyState>((set) => ({
-  // 선택 옵션 저장
-  result: {
-    moods: "",
-    activities: "",
-    styles: "",
-  },
+export const useSurveyStore = create<SurveyState>()(
+  persist(
+    (set) => ({
 
-  // 선택 토글 상태
-  toggleOption: (key, value) =>
-    set((state) => ({
-      result: {
-        ...state.result,
-        [key]: state.result[key] === value ? null : value,
-      },
-    })),
-
-  // 옵션 선택 초기화
-  reset: () =>
-    set({
+      // 선택 옵션 저장
       result: {
         moods: "",
         activities: "",
         styles: "",
       },
-    }),
 
-    disableResetOnce: () =>
-      set((state) => ({
-        result: {
-          ...state.result
-      },
-      shouldResetOnLeave: false
-    }))
-}))
+      // 선택 토글 상태
+      toggleOption: (key, value) =>
+        set((state) => ({
+          result: {
+            ...state.result,
+            [key]: state.result[key] === value ? null : value,
+          },
+        })),
+
+      // 옵션 선택 초기화
+      reset: () =>
+        set({
+          result: {
+            moods: "",
+            activities: "",
+            styles: "",
+          },
+        }),
+
+      disableResetOnce: () =>
+        set((state) => ({
+          result: {
+            ...state.result
+        },
+        shouldResetOnLeave: false
+      })),
+    }),
+    {
+      name: "survey-storage",
+    }
+  )
+)
